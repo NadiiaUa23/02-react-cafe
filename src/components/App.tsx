@@ -1,10 +1,15 @@
 // import { useState } from "react";
 import css from "./App.module.css";
+import CafeInfo from "./CafeInfo/CafeInfo";
 
 function App() {
   return (
     <div className={css.app}>
-      <h1>holla</h1>
+      <div>
+        <CafeInfo />
+      </div>
+      <p>кнопки</p>
+      <p>отзывы</p>
     </div>
   );
 }
