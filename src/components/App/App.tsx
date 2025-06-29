@@ -1,6 +1,8 @@
 // import { useState } from "react";
 import css from "./App.module.css";
-import CafeInfo from "./CafeInfo/CafeInfo";
+import CafeInfo from "../CafeInfo/CafeInfo";
+import VoteOptions from "../VoteOptions/VoteOptions";
+import VoteStats from "../VoteStats/VoteStats";
 
 function App() {
   return (
@@ -8,8 +10,8 @@ function App() {
       <div>
         <CafeInfo />
       </div>
-      <p>кнопки</p>
-      <p>отзывы</p>
+      <VoteOptions />
+      <VoteStats />
     </div>
   );
 }
