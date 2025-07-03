@@ -1,4 +1,4 @@
-export tupe VoteTupe = 'good' |'neutral' | 'bad';
+export type VoteTupe = "good" | "neutral" | "bad";
 
 export interface Votes {
   good: number;
