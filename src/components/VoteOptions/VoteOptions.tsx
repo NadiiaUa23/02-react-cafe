@@ -1,13 +1,20 @@
 import css from "./VoteOptions.module.css";
 import { VoteType } from "../../types/votes";
 
-interface Props {
+interface VoteOptionsProps {
+  /**
+   *onVote функція, яка приймає 'good' | 'neutral' | 'bad'
+   */
   onVote: (type: VoteType) => void;
   onReset: () => void;
   canReset: boolean;
 }
 
-export default function VoteOptions({ onVote, onReset, canReset }: Props) {
+export default function VoteOptions({
+  onVote,
+  onReset,
+  canReset,
+}: VoteOptionsProps) {
   return (
     <div>
       <div className={css.container}>
