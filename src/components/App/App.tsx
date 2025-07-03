@@ -2,7 +2,7 @@
 import css from "./App.module.css";
 import CafeInfo from "../CafeInfo/CafeInfo";
 import VoteOptions from "../VoteOptions/VoteOptions";
-import VoteStats from "../VoteStats/VoteStats";
+// import VoteStats from "../VoteStats/VoteStats";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <CafeInfo />
       </div>
       <VoteOptions />
-      <VoteStats />
+      {/* <VoteStats /> */}
     </div>
   );
 }

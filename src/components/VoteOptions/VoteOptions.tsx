@@ -9,7 +9,6 @@ export default function VoteOptions() {
         <button className={css.button}>Bad</button>
         <button className={`${css.button} ${css.reset}`}>Reset</button>
       </div>
-      ;
     </div>
   );
 }
