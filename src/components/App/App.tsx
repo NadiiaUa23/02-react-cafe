@@ -30,7 +30,11 @@ function App() {
   return (
     <div className={css.app}>
       <CafeInfo />
-      <VoteOptions onVote={handleVote} onReset={resetVotes} votes={votes} />
+      <VoteOptions
+        onVote={handleVote}
+        onReset={resetVotes}
+        canReset={votes.good + votes.neutral + votes.bad > 0}
+      />
       <VoteStats votes={votes} />
     </div>
   );

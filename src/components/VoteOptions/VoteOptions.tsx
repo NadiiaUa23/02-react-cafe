@@ -1,15 +1,13 @@
 import css from "./VoteOptions.module.css";
-import { VoteType, Votes } from "../../types/votes";
+import { VoteType } from "../../types/votes";
 
 interface Props {
   onVote: (type: VoteType) => void;
   onReset: () => void;
-  votes: Votes;
+  canReset: boolean;
 }
 
-export default function VoteOptions({ onVote, onReset, votes }: Props) {
-  const hasVotes = votes.good + votes.neutral + votes.bad > 0;
-
+export default function VoteOptions({ onVote, onReset, canReset }: Props) {
   return (
     <div>
       <div className={css.container}>
@@ -22,7 +20,7 @@ export default function VoteOptions({ onVote, onReset, votes }: Props) {
         <button className={css.button} onClick={() => onVote("bad")}>
           Bad
         </button>
-        {hasVotes && (
+        {canReset && (
           <button className={`${css.button} ${css.reset}`} onClick={onReset}>
             Reset
           </button>
