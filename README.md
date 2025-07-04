@@ -1,69 +1,113 @@
-# React + TypeScript + Vite
+Що ми будуємо:
+Маленький додаток для голосування. Користувач тисне кнопку:
+✅ Good
+😐 Neutral
+❌ Bad
+І бачить статистику.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🧩 Розбір коду покроково:
+🔹 1. Імпорти:
+tsx
+Копировать
+Редактировать
+import { useState } from "react"; // додає стан у функціональний компонент
+import css from "./App.module.css"; // стилі для компоненту App
+import CafeInfo from "../CafeInfo/CafeInfo"; // інфо про кафе
+import VoteOptions from "../VoteOptions/VoteOptions"; // кнопки для голосування
+import VoteStats from "../VoteStats/VoteStats"; // статистика голосів
 
-Currently, two official plugins are available:
+import type { Votes, VoteType } from "../../types/votes"; // типи
+💡 import type — тому що це тільки типи, а не функції чи компоненти.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔹 2. useState з обʼєктом:
+tsx
+Копировать
+Редактировать
+const [votes, setVotes] = useState<Votes>({
+good: 0,
+neutral: 0,
+bad: 0,
+});
+Тут ми створюємо стан (state):
 
-## Expanding the ESLint configuration
+votes — обʼєкт: { good: 0, neutral: 0, bad: 0 }
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+setVotes — функція, яка його змінює
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+🔹 3. Функція голосування:
+tsx
+Копировать
+Редактировать
+const handleVote = (type: VoteType) => {
+setVotes((prevVotes) => ({
+...prevVotes,
+[type]: prevVotes[type] + 1,
+}));
+};
+Як це працює:
+type = 'good', 'neutral' або 'bad'
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Коли ти тиснеш кнопку, наприклад "good", вона викликає:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+tsx
+Копировать
+Редактировать
+setVotes((prevVotes) => ({
+...prevVotes,
+good: prevVotes.good + 1
+}));
+...prevVotes — копіює старі значення
+[type] — змінює саме те поле, яке передали
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🔹 4. Скидання голосів:
+tsx
+Копировать
+Редактировать
+const resetVotes = () => {
+setVotes({
+good: 0,
+neutral: 0,
+bad: 0,
+});
+};
+Все обнуляється до початкового стану.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+🔹 5. JSX — відображення:
+tsx
+Копировать
+Редактировать
+return (
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  <div className={css.app}>
+    <CafeInfo /> // опис кафе
+    <VoteOptions
+      onVote={handleVote}
+      onReset={resetVotes}
+      canReset={votes.good + votes.neutral + votes.bad > 0}
+    />
+    <VoteStats votes={votes} />
+  </div>
+);
+✅ VoteOptions — кнопки для голосування. Ми передаємо:
+
+onVote — що робити при кліку
+
+onReset — що робити при Reset
+
+canReset — чи показувати кнопку Reset (якщо хоч 1 голос)
+
+📊 VoteStats — показує:
+
+good / neutral / bad
+
+total голосів
+
+відсоток позитивних
+
+🧠 Що ти тут вивчаєш:
+Тема Що тренуєш
+useState зберігання обʼєкта
+Обробники подій функції з параметрами
+Умовний рендер canReset && ...
+Деструктуризація пропсів і обʼєктів
+Типізація VoteType, Votes
