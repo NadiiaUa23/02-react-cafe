@@ -3,11 +3,11 @@ import type { Votes } from "../../types/votes";
 
 interface Props {
   votes: Votes;
+  totalVotes: number;
+  positiveRate: number;
 }
 
-export default function VoteStats({ votes }: Props) {
-  const total = votes.good + votes.neutral + votes.bad;
-  const positive = total ? Math.round((votes.good / total) * 100) : 0;
+export default function VoteStats({ votes, totalVotes, positiveRate }: Props) {
   return (
     <div>
       <div className={styles.container}>
@@ -21,10 +21,10 @@ export default function VoteStats({ votes }: Props) {
           Bad: <strong>{votes.bad}</strong>
         </p>
         <p className={styles.stat}>
-          Total: <strong>{total}</strong>
+          Total: <strong>{totalVotes}</strong>
         </p>
         <p className={styles.stat}>
-          Positive: <strong>{positive}%</strong>
+          Positive: <strong>{positiveRate}%</strong>
         </p>
       </div>
     </div>
